@@ -7,7 +7,7 @@ A simple REST API module for Flask.
 To install, run:
 
 ```shell
-pip install flask-resting
+pip install git+https://github.com/TechStudent11/Flask-Resting.git
 ```
 
 or:
