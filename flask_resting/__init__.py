@@ -8,7 +8,10 @@ class FlaskResting(object):
 
     def init_app(self, app):
         self.app = app
-        app.teardown_appcontext(self.teardown)
+        try:
+            app.teardown_appcontext(self.teardown)
+        except:
+            pass
 
     def teardown(self, exception):
         ctx = _app_ctx_stack.top
