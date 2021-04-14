@@ -44,13 +44,12 @@ class FlaskResting(object):
             else:
                 return resource._method_not_allowed()
 
-        with self.app.app_context():
-            current_app.add_url_rule(
-                url,
-                name or url.__class__.__name__,
-                execute_view,
-                **kwargs
-            )
+        self.app.add_url_rule(
+            url,
+            name or url.__class__.__name__,
+            execute_view,
+            **kwargs
+        )
 
 class Resource(object):
     def __init__(self):
