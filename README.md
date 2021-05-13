@@ -23,7 +23,7 @@ pip install .
 A basic REST API using this module would look like:
 
 ```python
-from flask import Flask
+from flask import Flask, request
 from flask_resting import FlaskResting, Resource
 
 app = Flask(__name__)
@@ -33,10 +33,23 @@ users = {}
 
 class UserView(Resource):
     def get(self, id):
-        return users.get(id)
+        if id == 'all':
+            return users
+        else:
+            return users.get(id, None) or "User not found."
     
     def post(self, id):
-        users[id] = {'id': id}
+        json = request.json or request.form
+        
+        username = json.get('username')
+        password = json.get('password')
+        
+        users[id] = {
+            'id': id,
+            'username': username,
+            'password': password
+        }
+        
         return users[id]
 
 api.add_resource(UserView, '/user/<id>')
